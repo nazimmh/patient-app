@@ -118,7 +118,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
         manifestPlaceholders = [onesignal_app_id: "cd4031d9-dfae-4589-b055-f6bb98547c16",
-                                onesignal_google_project_number: "79332811209"]
+                                onesignal_google_project_number: "REMOTE"]
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
@@ -152,6 +152,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-push-notification')
     compile project(':react-native-onesignal')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])

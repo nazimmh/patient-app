@@ -14,14 +14,14 @@ import {
   StatusBar,
   Image,
 } from 'react-native';
+import OneSignal from 'react-native-onesignal';
 import { Provider } from 'react-redux';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
 import { AppStackNavigator } from './app/config/Navigator';
 import configureStore from './app/store';
 import Images from './app/config/Images';
 import Colors from './app/config/Colors';
-
-type Props = {};
+import { pushNewNotification, scheduleNewNotification, scheduleNewNotification2 } from './app/utils/localPushNotification';
 
 const uiTheme = {
   palette: {
@@ -34,7 +34,7 @@ const uiTheme = {
   },
 };
 
-export default class App extends Component<Props> {
+export default class App extends Component {
 
   constructor() {
     super();
@@ -45,11 +45,41 @@ export default class App extends Component<Props> {
     this.statusBarColor = (Platform.OS === 'ios' ? 'dark-content' : 'light-content');
   }
 
+  componentWillMount() {
+    OneSignal.addEventListener('received', this.onReceived);
+    OneSignal.addEventListener('opened', this.onOpened);
+    OneSignal.addEventListener('ids', this.onIds);
+  }
+
   componentDidMount() {
     configureStore((store) => {
       this.store = store;
       this.setState({ isStoreInitialised: true });
+      // once the app is launched
+      // pushNewNotification('Rdv in 10min', "don't forget your appointment");
+      scheduleNewNotification2("I know you didn't forget but this is a reminder");
     });
+  }
+
+  componentWillUnmount() {
+    OneSignal.removeEventListener('received', this.onReceived);
+    OneSignal.removeEventListener('opened', this.onOpened);
+    OneSignal.removeEventListener('ids', this.onIds);
+  }
+
+  onReceived(notification) {
+    console.log("Notification received: ", notification);
+  }
+
+  onOpened(openResult) {
+    console.log('Message: ', openResult.notification.payload.body);
+    console.log('Data: ', openResult.notification.payload.additionalData);
+    console.log('isActive: ', openResult.notification.isAppInFocus);
+    console.log('openResult: ', openResult);
+  }
+
+  onIds(device) {
+    console.log('Device info: ', device);
   }
 
   render() {
