@@ -17,7 +17,7 @@ exports.pushNewNotification = (notificationTitle, notificationMessage) => {
     message: notificationMessage,
     playSound: true,
     soundName: 'default',
-    repeatType: 'minute',
+    repeatType: 'day',
   });
 };
 

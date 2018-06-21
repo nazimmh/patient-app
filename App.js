@@ -21,7 +21,20 @@ import { AppStackNavigator } from './app/config/Navigator';
 import configureStore from './app/store';
 import Images from './app/config/Images';
 import Colors from './app/config/Colors';
-import { pushNewNotification, scheduleNewNotification, scheduleNewNotification2 } from './app/utils/localPushNotification';
+import {
+  pushNewNotification,
+  scheduleNewNotification,
+  scheduleNewNotification2,
+} from './app/utils/localPushNotification';
+import Sound from 'react-native-sound';
+
+const notificationSound = new Sound('cs_rdv.mp3', Sound.MAIN_BUNDLE, (error) => {
+  if (error) {
+    console.log('failed to load the sound', error);
+    return;
+  }
+  console.log(`duration in seconds: ${notificationSound.getDuration()}number of channels: ${notificationSound.getNumberOfChannels()}`);
+});
 
 const uiTheme = {
   palette: {
@@ -58,6 +71,13 @@ export default class App extends Component {
       // once the app is launched
       // pushNewNotification('Rdv in 10min', "don't forget your appointment");
       scheduleNewNotification2("I know you didn't forget but this is a reminder");
+      setTimeout(() => {
+        notificationSound.setVolume(1);
+        notificationSound.play((success) => {
+          console.log('successfully played');
+          console.log(success);
+        });
+      }, 500);
     });
   }
 
