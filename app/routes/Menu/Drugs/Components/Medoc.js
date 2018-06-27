@@ -4,9 +4,11 @@ import {
   View,
   StyleSheet,
   ScrollView,
+  Image,
 } from 'react-native';
 import { Icon } from 'react-native-material-ui';
 import Colors from '../../../../config/Colors';
+import Images from '../../../../config/Images';
 
 class Medoc extends Component {
 
@@ -14,15 +16,16 @@ class Medoc extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.leftStyle}>
-          <Icon name={'local-pharmacy'} size={35} color={Colors.defaultIconColor} />
+          <Image source={Images.MEDICINE} style={{ height: 70, width: 70, resizeMode: 'cover' }} />
         </View>
         <View style={styles.rightStyle}>
-          <Text style={styles.titleStyle}>Drug name</Text>
-          <Text style={styles.descriptionStyle}>Description</Text>
+          <Text style={styles.titleStyle}>{this.props.medicine.name}</Text>
+          <Text style={styles.subTitleStyle}>{this.props.medicine.dosage}</Text>
+          <Text style={styles.descriptionStyle}>{this.props.medicine.description}</Text>
         </View>
         <View style={styles.extremRight}>
             {
-              this.props.schedule.map((item) => {
+              this.props.schedule && this.props.schedule.map((item) => {
               return (
                 <View style={styles.scheduleContainer}>
                   <Text style={styles.detailStyle}>10h</Text>
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    height: 80,
+    height: 100,
     justifyContent: 'center',
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -63,6 +66,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     color: Colors.defaultTextColor,
+  },
+  subTitleStyle: {
+    fontSize: 15,
+    textAlign: 'left',
+    color: Colors.orange,
   },
   descriptionStyle: {
     fontSize: 14,

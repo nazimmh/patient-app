@@ -63,6 +63,11 @@ class Doctors extends Component {
                 return (<DoctorItem doctor={doc}/>)
               })
             }
+            <DoctorItem doctor={{
+              name: 'Dr Mhand Amokrane',
+              email: 'a.mhand@gmail.com',
+              affected: true,
+            }}/>
           </View>
         }
       </ScrollView>

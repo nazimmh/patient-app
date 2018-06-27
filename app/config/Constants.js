@@ -2,6 +2,10 @@
 export const UPDATE_LOGIN_INFO = 'UPDATE_LOGIN_INFO';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const REHYDRATE = 'persist/REHYDRATE';
+// doctors api
 export const UPDATE_DOCTORS = 'UPDATE_DOCTORS';
+export const ASSIGN_DOCTOR = 'ASSIGN_DOCTOR';
+export const UPDATE_APPOINTMENTS = 'UPDATE_APPOINTMENTS';
+export const UPDATE_DRUGS = 'UPDATE_DRUGS';
 
 export const VIBRATION_DURATION = 1000;

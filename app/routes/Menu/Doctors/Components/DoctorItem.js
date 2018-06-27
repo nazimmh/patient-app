@@ -3,9 +3,12 @@ import {
   Text,
   View,
   StyleSheet,
+  Image,
+  Button,
 } from 'react-native';
 import { Icon } from 'react-native-material-ui';
 import Colors from '../../../../config/Colors';
+import Images from '../../../../config/Images';
 
 class DoctorItem extends Component {
 
@@ -20,18 +23,28 @@ class DoctorItem extends Component {
     )
   };
 
+  renderButton = (affected) => {
+    if (!affected) {
+      return (<Button color={'green'} title={'Affecter'} />);
+    }
+    return (<Button color={'red'} title={'Non affecter'} />);
+  };
+
   render() {
 
     return (
       <View style={styles.container}>
         <View style={styles.leftStyle}>
-          <Icon name={'account-circle'} size={75} color={Colors.defaultIconColor} />
+          <Image source={Images.DOCTOR} style={{ height: 100, width: 100, resizeMode: 'cover' }} />
         </View>
         <View style={styles.rightStyle}>
           <Text style={styles.titleStyle}>{this.props.doctor.name}</Text>
           <Text style={styles.subTitleStyle}>{this.props.doctor.email}</Text>
           <View stlye={styles.separation} />
           <View style={styles.specialityStyle}>{this.showSpecialities()}</View>
+          <View style={{ flexDirection: 'row', marginVertical: 5 }}>
+            {this.renderButton(this.props.doctor.affected)}
+          </View>
         </View>
       </View>
     );

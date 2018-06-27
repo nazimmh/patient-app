@@ -33,7 +33,28 @@ class Drugs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      drugs: [],
+      drugs: [
+        {
+          name: 'Pradaxa',
+          dosage: '20 mg',
+          description: '2 comprimés par jour pendant 3 mois',
+        },
+        {
+          name: 'Amarel',
+          dosage: '20 mg',
+          description: '3 comprimés par jour pendant 6 mois',
+        },
+        {
+          name: 'Glugophage',
+          dosage: '200 mg',
+          description: '1 comprimés par jour pendant 1 mois',
+        },
+        {
+          name: 'Diamicron',
+          dosage: '60 mg',
+          description: '2 comprimés par jour pendant 3 mois',
+        },
+      ],
     };
   }
 
@@ -50,10 +71,9 @@ class Drugs extends Component {
     return (
       <ScrollView style={{ containerStyle: { flex: 1 } }}>
         <View style={styles.drugsContainer}>
-          <Medoc schedule={[1,3,4]} />
-          <Medoc schedule={[1,3]} />
-          <Medoc schedule={[1]} />
-          <Medoc schedule={[1]} />
+          {this.state.drugs.map((drug) => {
+            return (<Medoc medicine={drug} />)
+          })}
         </View>
       </ScrollView>
     );

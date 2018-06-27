@@ -3,9 +3,12 @@ import {
   Text,
   StyleSheet,
   View,
+  Image,
 } from 'react-native';
 import { Icon } from 'react-native-material-ui';
+import moment from 'moment';
 import Color from '../../../../config/Colors';
+import Images from '../../../../config/Images';
 
 class AppointmentCard extends Component {
 
@@ -14,19 +17,18 @@ class AppointmentCard extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.leftSide}>
-          <Icon name={'account-circle'} size={70} color={Color.defaultIconColor} />
+          <Image source={Images.RDV} style={{ height: 70, width: 70, resizeMode: 'cover' }} />
         </View>
         <View style={styles.rightSide}>
-          <Text>{this.props.rdv}</Text>
-          <Text style={styles.titleStyle}>Doctor's name</Text>
-          <Text style={styles.subTitleStyle}>doctor.flan@gmail.com</Text>
+          <Text style={styles.titleStyle} numberOfLines={1}>{this.props.rdv.doctor.name}</Text>
+          <Text style={styles.subTitleStyle}>{this.props.rdv.doctor.email}</Text>
           <View style={styles.separation} />
-          <Text style={styles.descriptionStyle}>description here...</Text>
+          <Text style={styles.descriptionStyle}>{this.props.rdv.description}</Text>
         </View>
         <View style={styles.extremRight}>
-          <Text style={styles.yearStyle}>2018</Text>
-          <Text style={styles.monthStyle}>June</Text>
-          <Text style={styles.dayStyle}>05</Text>
+          <Text style={styles.yearStyle}>{moment(this.props.rdv.date).format('YYYY')}</Text>
+          <Text style={styles.monthStyle}>{moment(this.props.rdv.date).format('MMMM')}</Text>
+          <Text style={styles.dayStyle}>{moment(this.props.rdv.date).format('DD')}</Text>
         </View>
       </View>
     );
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     alignItems: 'stretch',
+    justifyContent: 'center',
   },
   titleStyle: {
     fontSize: 16,

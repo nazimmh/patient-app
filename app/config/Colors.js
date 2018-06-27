@@ -7,4 +7,5 @@ export default {
   defaultIconColor: '#212121',
   defaultTextColor: '#181818',
   defaultDescriptionColor: '#292929',
+  orange: '#ef9807',
 };

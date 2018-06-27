@@ -10,12 +10,13 @@ import {
 import { Icon } from 'react-native-material-ui';
 import AppointmentCard from './Components/AppointmentCard';
 import Color from '../../../config/Colors';
+import { getAppointments } from '../../../actions';
 
 class Appointments extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Rdv',
+      title: 'Mes Rendez-vous',
       drawerLabel: 'Mes Rendez-vous',
       drawerIcon: (
         <Icon name={'perm-contact-calendar'} size={26} color={Color.headerBackgroundColor} />
@@ -32,8 +33,21 @@ class Appointments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      appointments: [],
+      appointments: props.doctors.appointments,
     };
+  }
+
+  componentWillMount() {
+    // sync with the server every time we hit this code
+    this.props.dispatch(getAppointments(this.props.auth.uid)).then(result => {
+      console.log('data synced successfully');
+      this.setState({ appointments: result }, () => {
+        // schedule the appointment
+
+      });
+    }).catch(err => {
+      console.log('error '+err);
+    });
   }
 
   render() {
@@ -49,9 +63,12 @@ class Appointments extends Component {
     return (
       <ScrollView style={{ containerStyle: { flex: 1 } }}>
         <View style={styles.appointmentContainer}>
-          <AppointmentCard rdv={'RDV 001'} />
-          <AppointmentCard rdv={'RDV 002'}/>
-          <AppointmentCard rdv={'RDV 003'}/>
+          {
+            this.state.appointments && this.state.appointments.length > 0 &&
+            this.state.appointments.map((object) => {
+              return (<AppointmentCard rdv={object} />)
+            })
+          }
         </View>
       </ScrollView>
     );
@@ -68,6 +85,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+  doctors: state.doctors,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(Appointments);

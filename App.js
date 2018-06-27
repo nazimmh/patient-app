@@ -70,14 +70,14 @@ export default class App extends Component {
       this.setState({ isStoreInitialised: true });
       // once the app is launched
       // pushNewNotification('Rdv in 10min', "don't forget your appointment");
-      scheduleNewNotification2("I know you didn't forget but this is a reminder");
-      setTimeout(() => {
-        notificationSound.setVolume(1);
-        notificationSound.play((success) => {
-          console.log('successfully played');
-          console.log(success);
-        });
-      }, 500);
+      // pushNewNotification("Rappel de rendez-vous", "Vous avez une consultation prévu pour demain chez Docteur Aloui");
+      // setTimeout(() => {
+      //   notificationSound.setVolume(1);
+      //   notificationSound.play((success) => {
+      //     console.log('successfully played');
+      //     console.log(success);
+      //   });
+      // }, 500);
     });
   }
 
