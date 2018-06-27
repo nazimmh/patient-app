@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const BASE_URL = 'http://localhost:3000';
-const BASE_URL = 'http://192.168.0.118:3000';
+const BASE_URL = 'http://192.168.1.100:3000';
 
 axios.defaults.baseURL = `${BASE_URL}/api`;
 axios.defaults.timeout = 30000;
